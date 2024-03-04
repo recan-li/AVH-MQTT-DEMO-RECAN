@@ -1,47 +1,90 @@
-# AWS MQTT Demo for Arm Virtual Hardware
 
-This project demonstrates how to setup a development workflow with cloud-based Continuous Integration (CI) for testing an IoT application that connects to AWS cloud services.
+# Introduce
 
-Code development and debug can be done locally, for example with [CMSIS-Build](https://arm-software.github.io/CMSIS_5/develop/Build/html/index.html) and [Keil MDK](https://developer.arm.com/tools-and-software/embedded/keil-mdk) tools. We are also working on a development flow for [Keil Studio](https://keil.arm.com) that will provide a cloud-native development environment.
+This is an ARM based AVH mirror simulation Cortex-M7 chip platform for building an intelligent IoT terminal project. The terminal side uses the MQTT protocol to interact with the cloud, achieving reporting of terminal information and responding to control instructions issued by the cloud.
 
-Automated build and test runs are executed on [Arm Virtual Hardware](https://www.arm.com/virtual-hardware)(AVH) in AWS and get managed with GitHub Actions. The test results can be then observed in repository's [Actions](https://github.com/ARM-software/AVH-GetStarted/actions).
+# Project file structure
 
-For more details also check [**AWS MQTT Example description**](https://arm-software.github.io/AVH/main/examples/html/aws_mqtt.html) in Arm Virtual Hardware documentation.
+```sh
+├── AVH-AWS_MQTT_Demo
+│   ├── amazon-freertos 					# amazon-freertos source files	
+│   ├── app_main.c 							# appliacation entry source file
+│   ├── avh.yml 							# avh configarution file
+│   ├── AWS_MQTT_MutualAuth.IMXRT1050-EVKB_ESP8266.cprj		# MDK project file
+│   ├── AWS_MQTT_MutualAuth.uvoptx 							# MDK project file
+│   ├── AWS_MQTT_MutualAuth.uvprojx 						# MDK project file
+│   ├── AWS_MQTT_MutualAuth.VHT_MPS2_Cortex-M7.cprj 		# MDK project file
+│   ├── Board 								# Board msg
+│   ├── build.py  							# build python file for AVH-AWS_MQTT_Demo project
+│   ├── config_files 						# AVH-AWS_MQTT_Demo configuration files
+│   ├── IMXRT1050-EVKB.mex 					# IMXRT1050-EVKB mex file
+│   ├── Interfaces 							# API for iot demo
+│   ├── LICENSE 							# license file
+│   ├── mdk_config.txt 						# mdk configuration
+│   ├── README.md  							# readme for AVH-AWS_MQTT_Demo
+│   ├── requirements.txt 					# python requirements file
+│   ├── RTE
+│   └── vht_config.txt 						# vht configuration file
+├── config
+│   └── iot_demo_mqtt_config.sh				# user configuration
+├── include
+│   ├── cJSON.h 							# cjson util header file
+│   └── iot_demo_mqtt_user.h 				# user demo header file
+├── Makefile								# Makefile for project building
+├── README.md 								# This readme file
+└── src
+    ├── cJSON.c 							# cjson util source file
+    └── iot_demo_mqtt_user.c 				# user demog source file
+```
 
-## Setup of CI Test
+# Steps for test this demo
 
-To build and run this application with a CI workflow on GitHub the following steps are required. For details refer to [Run AMI with GitHub Actions](https://arm-software.github.io/AVH/main/infrastructure/html/run_ami_github.html).
+1. Clone this project from github.
+2. Read this README file and `make help` to get more help msg.
+3. Install python tolls by `make pip`
+4. Install some other tools, such as cbuild and cpackget.
+5. `make all` to build this project, or make it step by step: 
+   `make source` -> `make clean` -> `make build` -> `make run`
+6. When you see the following logs, you are lucky to run this demo well.
 
-1. **Amazon Web Service (AWS) account** with:
-    - Amazon EC2 (elastic cloud) access
-    - Amazon S3 (storage) access
-    - Registration to access AVH Amazon Machine Image [AVH AMI](https://aws.amazon.com/marketplace/search/results?searchTerms=Arm+Virtual+Hardware)
-    - User role setup for scripted API access
+```sh
+Running ...
+/opt/VHT/VHT_MPS2_Cortex-M7 --stat --simlimit 800 -f AVH-AWS_MQTT_Demo/vht_config.txt out/image.elf
+telnetterminal0: Listening for serial connection on port 5000
+telnetterminal1: Listening for serial connection on port 5001
+telnetterminal2: Listening for serial connection on port 5002
+[    0          1] [iot_thread] [INFO ][DEMO][1] ---------STARTING DEMO---------
 
-2. **GitHub**:
-    - Fork this repository with at least _Write_ access rights
-    - Store the AWS account configuration (obtained in step 1) as
-    [GitHub Secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets) - **AWS Access** values in the forked repository
-    
-3. **AWS IoT Thing**:
-    - Use the [AWS IoT console](https://console.aws.amazon.com/iotv2/) to create a thing, download its certificates, create a policy, and attach the policy to the thing
-    - Store this configuration as [GitHub Secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets) - **IoT Cloud Access** values in the forked repository
 
-## GitHub Secrets - Values
+[    1          9] [iot_thread] [INFO ][INIT][9] SDK successfully initialized.
 
-The following (secret) configuration values need to be added to the repositories [Secret store](../../settings/secrets/actions):
+[    2         17] [iot_thread] [INFO ][DEMO][17] Successfully initialized the demo. Network type for the demo: 4
 
-Secret Name                    | Description
-:------------------------------|:--------------------
-**AWS Access**                 | **Settings and credentials to acces AWS services for running Arm Virtual Hardware**
-`AWS_IAM_PROFILE`              | The [IAM Instance Profile](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html) associated with the AVH EC2 instance granting it access to required AWS resources.
-`AWS_ACCESS_KEY_ID`<br>`AWS_SECRET_ACCESS_KEY`      | [Access key pair](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html) for the AWS account (as IAM user) that shall be used by the CI workflow for AWS access.
-`AWS_S3_BUCKET_NAME`           | The name of the [S3 storage bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/creating-buckets-s3.html) to be used for temporary data storage by Arm Virtual Hardware.
-`AWS_DEFAULT_REGION`           | The data center region for running new AVH AMI. For example `eu-west-1`.
-`AWS_SECURITY_GROUP_ID`        | The id of the [VPC security group](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html) to add the EC2 instance to. Shall have format `sg-xxxxxxxx`.
-`AWS_SUBNET_ID`                | The id of the [VPC subnet](https://docs.aws.amazon.com/vpc/latest/userguide/working-with-vpcs.html#view-subnet) to connect the EC2 instance to. Shall have format `subnet-xxxxxxxx`.
-**IoT Cloud Access**           | <b>Settings and credentials required to connect an [AWS IoT Thing](https://github.com/MDK-Packs/Documentation/tree/master/AWS_Thing)</b>
-`CLIENT_CERTIFICATE_PEM`       | Client (device) certificate
-`CLIENT_PRIVATE_KEY_PEM`       | Client (device) private key
-`IOT_THING_NAME`               | Client  (device) name
-`MQTT_BROKER_ENDPOINT`         | MQTT broker host name
+[    3         29] [iot_thread] [INFO] Test to recan-li.cn with recan's demo device
+[    4         36] [iot_thread] [INFO] Creating a TLS connection to recan-li.cn:1883.
+[    5        105] [iot_thread] [INFO] Creating an MQTT connection to recan-li.cn.
+[    6        142] [iot_thread] [INFO] Packet received. ReceivedBytes=2.
+[    7        148] [iot_thread] [INFO] CONNACK session present bit not set.
+[    8        156] [iot_thread] [INFO] Connection accepted.
+[    9        161] [iot_thread] [INFO] Received MQTT CONNACK successfully from broker.
+[   10        170] [iot_thread] [INFO] MQTT connection established with the broker.
+[   11        178] [iot_thread] [INFO] An MQTT connection is established with recan-li.cn.
+[   12        186] [iot_thread] [INFO] Attempt to subscribe to the MQTT topic domoticz/out.
+[   13        195] [iot_thread] [INFO] SUBSCRIBE sent for topic domoticz/out to broker.
+[   14        223] [iot_thread] [INFO] Packet received. ReceivedBytes=3.
+[   15        230] [iot_thread] [INFO] Subscribed to the topic domoticz/out with maximum QoS 1.
+[   16      10028] [iot_thread] [INFO] ---> cnt 1
+[   17      10032] [iot_thread] [INFO] ---> light (1) <告警指示灯> [ON]
+[   18      10040] [iot_thread] [INFO] report msg: {"idx":5,"nvalue":1}
+[   19      10107] [iot_thread] [INFO] Packet received. ReceivedBytes=2.
+[   20      10113] [iot_thread] [INFO] Ack packet deserialized with result: MQTTSuccess.
+[   21      10122] [iot_thread] [INFO] State record updated. New state=MQTTPublishDone.
+[   22      10130] [iot_thread] [INFO] PUBACK received for packet Id 2.
+[   23      20047] [iot_thread] [INFO] ---> cnt 2
+[   24      20051] [iot_thread] [INFO] ---> light (0) <告警指示灯> [OFF]
+[   25      20059] [iot_thread] [INFO] report msg: {"idx":5,"nvalue":0}
+[   26      20276] [iot_thread] [INFO] Packet received. ReceivedBytes=2.
+[   27      20283] [iot_thread] [INFO] Ack packet deserialized with result: MQTTSuccess.
+[   28      20291] [iot_thread] [INFO] State record updated. New state=MQTTPublishDone.
+[   29      20299] [iot_thread] [INFO] PUBACK received for packet Id 3.
+```

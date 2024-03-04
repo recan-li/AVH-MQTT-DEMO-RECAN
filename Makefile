@@ -1,8 +1,8 @@
 
-MQTT_DEMO_PATH 		:= AVH-AWS_MQTT_Demo
-USER_CONFIG_PATH 	:= config
-OUT_PATH 			:= out
-AVH_SIMLIMIT_TIME 	:= 800
+MQTT_DEMO_PATH      := AVH-AWS_MQTT_Demo
+USER_CONFIG_PATH    := config
+OUT_PATH            := out
+AVH_SIMLIMIT_TIME   := 800
 
 all: source clean build run
 

@@ -7,34 +7,34 @@ This is an ARM based AVH mirror simulation Cortex-M7 chip platform for building 
 
 ```sh
 ├── AVH-AWS_MQTT_Demo
-│   ├── amazon-freertos 					# amazon-freertos source files	
-│   ├── app_main.c 							# appliacation entry source file
-│   ├── avh.yml 							# avh configarution file
-│   ├── AWS_MQTT_MutualAuth.IMXRT1050-EVKB_ESP8266.cprj		# MDK project file
-│   ├── AWS_MQTT_MutualAuth.uvoptx 							# MDK project file
-│   ├── AWS_MQTT_MutualAuth.uvprojx 						# MDK project file
-│   ├── AWS_MQTT_MutualAuth.VHT_MPS2_Cortex-M7.cprj 		# MDK project file
-│   ├── Board 								# Board msg
-│   ├── build.py  							# build python file for AVH-AWS_MQTT_Demo project
-│   ├── config_files 						# AVH-AWS_MQTT_Demo configuration files
-│   ├── IMXRT1050-EVKB.mex 					# IMXRT1050-EVKB mex file
-│   ├── Interfaces 							# API for iot demo
-│   ├── LICENSE 							# license file
-│   ├── mdk_config.txt 						# mdk configuration
-│   ├── README.md  							# readme for AVH-AWS_MQTT_Demo
-│   ├── requirements.txt 					# python requirements file
+│   ├── amazon-freertos                     # amazon-freertos source files  
+│   ├── app_main.c                          # appliacation entry source file
+│   ├── avh.yml                             # avh configarution file
+│   ├── AWS_MQTT_MutualAuth.IMXRT1050-EVKB_ESP8266.cprj     # MDK project file
+│   ├── AWS_MQTT_MutualAuth.uvoptx                          # MDK project file
+│   ├── AWS_MQTT_MutualAuth.uvprojx                         # MDK project file
+│   ├── AWS_MQTT_MutualAuth.VHT_MPS2_Cortex-M7.cprj         # MDK project file
+│   ├── Board                               # Board msg
+│   ├── build.py                            # build python file for AVH-AWS_MQTT_Demo project
+│   ├── config_files                        # AVH-AWS_MQTT_Demo configuration files
+│   ├── IMXRT1050-EVKB.mex                  # IMXRT1050-EVKB mex file
+│   ├── Interfaces                          # API for iot demo
+│   ├── LICENSE                             # license file
+│   ├── mdk_config.txt                      # mdk configuration
+│   ├── README.md                           # readme for AVH-AWS_MQTT_Demo
+│   ├── requirements.txt                    # python requirements file
 │   ├── RTE
-│   └── vht_config.txt 						# vht configuration file
+│   └── vht_config.txt                      # vht configuration file
 ├── config
-│   └── iot_demo_mqtt_config.sh				# user configuration
+│   └── iot_demo_mqtt_config.sh             # user configuration
 ├── include
-│   ├── cJSON.h 							# cjson util header file
-│   └── iot_demo_mqtt_user.h 				# user demo header file
-├── Makefile								# Makefile for project building
-├── README.md 								# This readme file
+│   ├── cJSON.h                             # cjson util header file
+│   └── iot_demo_mqtt_user.h                # user demo header file
+├── Makefile                                # Makefile for project building
+├── README.md                               # This readme file
 └── src
-    ├── cJSON.c 							# cjson util source file
-    └── iot_demo_mqtt_user.c 				# user demog source file
+    ├── cJSON.c                             # cjson util source file
+    └── iot_demo_mqtt_user.c                # user demog source file
 ```
 
 # Steps for test this demo

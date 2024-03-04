@@ -12,6 +12,8 @@
 #include "FreeRTOS.h"
 #include "FreeRTOSConfig.h"
 
+#define DEV_STATUS_REPORT_INV_TIME  3000 // 10S
+
 static int g_light_id = 5;
 static int g_light_id5_value = 0;
 static char g_light_name[64] = "告警指示灯";
@@ -102,7 +104,7 @@ static void iot_Demo_mqtt_loop_task(void *arg)
 	int cnt = 0;
 
 	while (1) {
-		vTaskDelay( pdMS_TO_TICKS( 10000 ) );
+		vTaskDelay( pdMS_TO_TICKS( DEV_STATUS_REPORT_INV_TIME ) );
 		cnt++;
 		LogInfo(("---> cnt %d", cnt));
 		g_light_id5_value = !g_light_id5_value;

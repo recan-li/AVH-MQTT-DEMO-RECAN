@@ -19,6 +19,8 @@ help:
 debug: build run
 
 source:	
+	@echo "Copy CMSIS-Build-Utils.cmake"
+	@sudo cp -rf cmake/CMSIS-Build-Utils.cmake /opt/ctools/etc/CMSIS-Build-Utils.cmake
 	@echo "Install env parameters ..."
 	@dos2unix $(USER_CONFIG_PATH)/iot_demo_mqtt_config.sh; \
 	. $(USER_CONFIG_PATH)/iot_demo_mqtt_config.sh; \
@@ -43,6 +45,6 @@ clean:
 	rm -rf aws_mqtt*.zip
 
 pip:
-	pip install -r $(MQTT_DEMO_PATH)/requirements.txt 
+	pip install -r $(MQTT_DEMO_PATH)/requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 .PHONY: all source clean build run help

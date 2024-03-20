@@ -12,7 +12,7 @@
 #include "FreeRTOS.h"
 #include "FreeRTOSConfig.h"
 
-#define DEV_STATUS_REPORT_INV_TIME  3000 // 10S
+#define DEV_STATUS_REPORT_INV_TIME  10000 // 10S
 
 static int g_light_id = 5;
 static int g_light_id5_value = 0;

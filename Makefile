@@ -3,6 +3,7 @@ MQTT_DEMO_PATH      := AVH-AWS_MQTT_Demo
 USER_CONFIG_PATH    := config
 OUT_PATH            := out
 AVH_SIMLIMIT_TIME   := 800
+SHELL 				:= /bin/bash
 
 all: source clean build run
 
@@ -18,15 +19,19 @@ help:
 
 debug: build run
 
-source:	
-	@echo "Copy CMSIS-Build-Utils.cmake"
+source:
+	@echo "Copy and source .bashrc ..."
+	@cp -rf .bashrc ~/.bashrc
+	@source ~/.bashrc
+	@echo "Copy CMSIS-Build-Utils.cmake ..."
 	@sudo cp -rf cmake/CMSIS-Build-Utils.cmake /opt/ctools/etc/CMSIS-Build-Utils.cmake
 	@echo "Install env parameters ..."
-	@dos2unix $(USER_CONFIG_PATH)/iot_demo_mqtt_config.sh; \
+	@dos2unix $(USER_CONFIG_PATH)/iot_demo_mqtt_config.sh > /dev/null 2>&1; \
 	. $(USER_CONFIG_PATH)/iot_demo_mqtt_config.sh; \
 	cd $(MQTT_DEMO_PATH)/amazon-freertos/demos/include; \
 	envsubst <aws_clientcredential.h.in >aws_clientcredential.h; \
 	envsubst <aws_clientcredential_keys.h.in >aws_clientcredential_keys.h
+	@echo "All parameters have been installed."
 
 build:
 	@echo "Building ..."

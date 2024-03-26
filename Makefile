@@ -41,7 +41,7 @@ build:
 
 run:
 	@echo "Running ..."
-	/opt/VHT/VHT_MPS2_Cortex-M7 --stat --simlimit $(AVH_SIMLIMIT_TIME) -f $(MQTT_DEMO_PATH)/vht_config.txt $(OUT_PATH)/image.elf
+	/opt/VHT/bin/FVP_MPS2_Cortex-M7 --stat --simlimit $(AVH_SIMLIMIT_TIME) -f $(MQTT_DEMO_PATH)/vht_config.txt $(OUT_PATH)/image.elf
 
 clean:
 	@echo "Clean ..."

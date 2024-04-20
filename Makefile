@@ -4,6 +4,7 @@ USER_CONFIG_PATH    := config
 OUT_PATH            := out
 AVH_SIMLIMIT_TIME   := 800
 SHELL 				:= /bin/bash
+V  					?= 0
 
 all: source clean build run
 
@@ -36,7 +37,7 @@ source:
 build:
 	@echo "Building ..."
 	@test -e $(OUT_PATH) || mkdir -p $(OUT_PATH)
-	cbuild --packs $(MQTT_DEMO_PATH)/AWS_MQTT_MutualAuth.VHT_MPS2_Cortex-M7.cprj
+	cbuild --packs $(MQTT_DEMO_PATH)/AWS_MQTT_MutualAuth.VHT_MPS2_Cortex-M7.cprj --update-rte -v=$(V)
 	@cp -rf $(MQTT_DEMO_PATH)/Objects/image.elf $(OUT_PATH)
 
 run:

@@ -30,9 +30,9 @@
 /* ARM::CMSIS:RTOS2:FreeRTOS:Cortex-M:10.4.3 */
 #define RTE_CMSIS_RTOS2                 /* CMSIS-RTOS2 */
         #define RTE_CMSIS_RTOS2_FreeRTOS        /* CMSIS-RTOS2 FreeRTOS */
-/* ARM::Security:mbed TLS:3.1.0 */
+/* ARM::Security:mbed TLS:2.24.0 */
 #define RTE_Security_mbedTLS            /* Security mbed TLS */
-/* Keil.ARM Compiler::Compiler:Event Recorder:DAP:1.5.1 */
+/* Keil.ARM Compiler::Compiler:Event Recorder:DAP:1.4.0 */
 #define RTE_Compiler_EventRecorder
           #define RTE_Compiler_EventRecorder_DAP
 /* Keil.ARM Compiler::Compiler:I/O:STDERR:User:1.2.0 */

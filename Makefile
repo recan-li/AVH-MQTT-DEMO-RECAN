@@ -37,7 +37,7 @@ source:
 build:
 	@echo "Building ..."
 	@test -e $(OUT_PATH) || mkdir -p $(OUT_PATH)
-	cbuild --packs $(MQTT_DEMO_PATH)/AWS_MQTT_MutualAuth.VHT_MPS2_Cortex-M7.cprj --update-rte -v=$(V)
+	cbuild --packs $(MQTT_DEMO_PATH)/AWS_MQTT_MutualAuth.VHT_MPS2_Cortex-M7.cprj -v=$(V)
 	@cp -rf $(MQTT_DEMO_PATH)/Objects/image.elf $(OUT_PATH)
 
 run:

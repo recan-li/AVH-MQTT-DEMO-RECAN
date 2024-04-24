@@ -31,8 +31,8 @@ def build(config, results):
     file = f"aws_mqtt-{config.target[0].lower()}-{timestamp()}.zip"
     logging.info(f"Archiving build output to {file}...")
     with ZipFile(file, "w") as archive:
-        archive.write(f"Objects/image.elf")
-        archive.write(f"Objects/image.elf.map")
+        archive.write(f"Objects/image.axf")
+        archive.write(f"Objects/image.axf.map")
         archive.write(f"Objects/AWS_MQTT_MutualAuth.{config.target[1]}.clog")
 
 

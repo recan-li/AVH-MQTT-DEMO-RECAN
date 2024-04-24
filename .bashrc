@@ -124,6 +124,6 @@ alias gc='git commit -m '
 alias gl='git log '
 alias gb='git branch -a'
 
-export PATH=/opt/VHT:/opt/VHT/bin:/home/ubuntu/packs/tools/cmsis-toolbox-linux-arm64/bin:$PATH
+export PATH=/opt/VHT:/opt/VHT/bin:$PATH
 export CMSIS_COMPILER_ROOT=/opt/ctools/etc
 export CMSIS_PACK_ROOT=/home/ubuntu/packs

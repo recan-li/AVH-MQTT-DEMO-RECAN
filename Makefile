@@ -38,11 +38,11 @@ build:
 	@echo "Building ..."
 	@test -e $(OUT_PATH) || mkdir -p $(OUT_PATH)
 	cbuild --packs $(MQTT_DEMO_PATH)/AWS_MQTT_MutualAuth.VHT_MPS2_Cortex-M7.cprj -v=$(V)
-	@cp -rf $(MQTT_DEMO_PATH)/Objects/image.elf $(OUT_PATH)
+	@cp -rf $(MQTT_DEMO_PATH)/Objects/image.axf $(OUT_PATH)
 
 run:
 	@echo "Running ..."
-	/opt/VHT/bin/FVP_MPS2_Cortex-M7 --stat --simlimit $(AVH_SIMLIMIT_TIME) -f $(MQTT_DEMO_PATH)/vht_config.txt $(OUT_PATH)/image.elf
+	/opt/VHT/bin/FVP_MPS2_Cortex-M7 --stat --simlimit $(AVH_SIMLIMIT_TIME) -f $(MQTT_DEMO_PATH)/vht_config.txt $(OUT_PATH)/image.axf
 
 clean:
 	@echo "Clean ..."

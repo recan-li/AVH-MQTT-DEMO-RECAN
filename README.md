@@ -49,7 +49,7 @@ This is an ARM based AVH mirror simulation Cortex-M7 chip platform for building 
 
 ```sh
 Running ...
-/opt/VHT/VHT_MPS2_Cortex-M7 --stat --simlimit 800 -f AVH-AWS_MQTT_Demo/vht_config.txt out/image.elf
+/opt/VHT/VHT_MPS2_Cortex-M7 --stat --simlimit 800 -f AVH-AWS_MQTT_Demo/vht_config.txt out/image.axf
 telnetterminal0: Listening for serial connection on port 5000
 telnetterminal1: Listening for serial connection on port 5001
 telnetterminal2: Listening for serial connection on port 5002
